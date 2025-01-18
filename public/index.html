@@ -6,14 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="An untitled game" />
-    <link rel="apple-touch-icon" href="/assets/icons/web/apple-touch-icon.png" />
+    <link
+      rel="apple-touch-icon"
+      href="/assets/icons/web/apple-touch-icon.png"
+    />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="stylesheet" href="/css/style.css" />
     <title>Untitled Game</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript for this!</noscript>
-    <div class="container"></div>
+    <div class="container">
+      <div id="left-column" class="left-column">
+        <div id="money-container" class="money-container">
+          $<span id="money" class="money">0</span>
+        </div>
+        <div id="click-container" class="click-container">
+          <button id="click-button" class="click-button">Placeholder!</button>
+        </div>
+      </div>
+      <div class="border"></div>
+      <div id="tabs-container" class="tabs-container">
+        <div class="tabs-header">
+          <a class="header-item" href="#upgrades">Upgrades</a>
+          <a class="header-item" href="#buildings">Buildings</a>
+        </div>
+        <div class="tabs">
+          <div id="upgrades" class="upgrades-container tab">
+            <div id="upgrades-container" class="upgrades"></div>
+          </div>
+          <div id="buildings" class="buildings-container tab">
+            <div id="buildings-container" class="buildings"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/js/main.js"></script>
   </body>
 </html>

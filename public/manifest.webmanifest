@@ -11,6 +11,7 @@
   "background_color": "#ffffff",
   "orientation": "portrait",
   "dir": "ltr",
+  "categories": ["games"],
   "icons": [
     {
       "src": "/assets/icons/web/apple-touch-icon.png",

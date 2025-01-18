@@ -1,0 +1,138 @@
+:root {
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --border-texture: linear-gradient(to right, #e7e7e7, #c4c4c4);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    margin: 0;
+    background-color: #f2f2f2;
+    font-family: "Arial", sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+    text-align: justify;
+}
+
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.tabs-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.tabs-header {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-item {
+    cursor: pointer;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.header-item:hover {
+    background-color: var(--secondary);
+}
+
+.header-item:active {
+    transform: scale(0.85);
+}
+
+.tabs {
+    flex: 13;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    height: 100%;
+}
+
+.click-button {
+    cursor: pointer;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--info);
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 2rem;
+}
+
+.click-button:hover {
+    background-color: var(--warning);
+}
+
+.click-button:active {
+    background-color: var(--danger);
+    transform: scale(0.8);
+}
+
+.border {
+    background: var(--border-texture);
+    flex: 0.03;
+}
+
+@media screen and (max-width: 600px) {
+    :root {
+        --border-texture: linear-gradient(to bottom, #00000007, #00000013);
+    }
+
+    .container {
+        flex-direction: column;
+    }
+}
