@@ -1,0 +1,68 @@
+{
+  "short_name": "Untitled",
+  "name": "Untitled game",
+  "description": "An untitled game",
+  "lang": "en-US",
+  "scope": "/",
+  "id": "dev.lukadjo.untitled",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/assets/icons/web/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "/assets/icons/web/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/assets/icons/web/icon-192-maskable.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/web/icon-512-maskable.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/web/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/assets/icons/android/res/mipmap-xxxhdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/icons/android/res/mipmap-xxhdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/assets/icons/android/res/mipmap-xhdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/assets/icons/android/res/mipmap-hdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/assets/icons/android/res/mipmap-mdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    }
+  ]
+}
