@@ -5,7 +5,7 @@
         "name": "A vacation",
         "id": "vacation",
         "description": "Relax for once.",
-        "img": "/assets/game-content/purchasables/vacation.png",
+        "img": "/assets/game-content/purchasables/baggage.png",
         "dependencies": [],
         "basePrice": 2000,
         "effect": {
