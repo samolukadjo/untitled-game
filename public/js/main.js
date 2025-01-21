@@ -11,8 +11,8 @@ let gameState = {
   debug: false,
   globalMultiplier: 1,
   tapMultiplier: 1,
-  upgrades: [],
-  buildings: ["lemonade-stand"],
+  upgrades: {},
+  buildings: { "lemonade-stand": { amount: 5 } },
 };
 let purchasables = {};
 
@@ -31,7 +31,7 @@ function init() {
       renderAll();
       saveGameStatePeriodically();
 
-      document.getElementById("click-button")
+      document.getElementById("click-button");
     });
 }
 
@@ -56,6 +56,8 @@ function renderMoney() {
 function renderPurchasables() {
   const upgradesList = [];
   const buildingsList = [];
+  let renderedUpgrades;
+  let renderedBuildings;
 
   for (const purchasable of gameState.initial
     ? purchasables.upgrades.initial
@@ -64,10 +66,10 @@ function renderPurchasables() {
       console.log(purchasable);
     }
     if (
-      purchasable.dependencies.every((upgrade) =>
-        gameState.upgrades.concat(gameState.buildings).includes(upgrade)
+      purchasable.dependencies.every(
+        (upgrade) => gameState.upgrades[upgrade] || gameState.buildings[upgrade]
       ) &&
-      !gameState.upgrades.includes(purchasable.id)
+      !gameState.upgrades[purchasable.id]
     ) {
       upgradesList.push(purchasable);
     }
@@ -80,10 +82,10 @@ function renderPurchasables() {
       console.log(purchasable);
     }
     if (
-      purchasable.dependencies.every((building) =>
-        gameState.buildings.concat(gameState.upgrades).includes(building)
-      ) &&
-      !gameState.buildings.includes(purchasable.id)
+      purchasable.dependencies.every(
+        (building) =>
+          gameState.buildings[building] || gameState.upgrades[building]
+      )
     ) {
       buildingsList.push(purchasable);
     }
@@ -93,10 +95,19 @@ function renderPurchasables() {
     console.log(upgradesList);
   }
 
+  renderedUpgrades = renderPurchasableList(upgradesList);
+  renderedUpgrades.prepend(
+    (document.createElement("h3").textContent = "Upgrades")
+  );
+  renderedBuildings = renderPurchasableList(buildingsList);
+  renderedBuildings.prepend(
+    (document.createElement("h3").textContent = "Buildings")
+  );
+
   upgradesContainer.innerHTML = "";
   buildingsContainer.innerHTML = "";
-  upgradesContainer.appendChild(renderPurchasableList(upgradesList));
-  buildingsContainer.appendChild(renderPurchasableList(buildingsList));
+  upgradesContainer.appendChild(renderedUpgrades);
+  buildingsContainer.appendChild(renderedBuildings);
 }
 
 function renderPurchasableList(purchasableList) {
@@ -136,6 +147,22 @@ function renderPurchasable(purchasable) {
 
   li.appendChild(img);
   li.appendChild(textWrapper);
+
+  if (purchasable.type === "building") {
+    const amountCounter = document.createElement("span");
+
+    if (gameState.buildings[purchasable.id]) {
+      amountCounter.textContent = gameState.buildings[purchasable.id].amount;
+      button.textContent = "Buy for " + currency + (purchasable.basePrice * (1.12 ** gameState.buildings[purchasable.id].amount)).toFixed(0);
+    } else {
+      amountCounter.textContent = 0;
+      button.textContent = "Buy for " + currency + purchasable.basePrice;
+    }
+
+    amountCounter.classList.add("amount-counter");
+    li.appendChild(amountCounter);
+  }
+
   li.appendChild(button);
   return li;
 }
@@ -149,7 +176,6 @@ function renderClick() {
   });
   clickContainer.innerHTML = "";
   clickContainer.appendChild(button);
-
 }
 
 function updateMoneyAmountCounterPeriodically(element) {
