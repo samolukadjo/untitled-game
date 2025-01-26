@@ -21,7 +21,7 @@ let purchasables = {};
 init();
 
 function init() {
-  fetch("../assets/game-content/purchasables.json")
+  fetch("./../assets/game-content/purchasables.json")
     .then((response) => response.json())
     .then((data) => {
       purchasables = data;
