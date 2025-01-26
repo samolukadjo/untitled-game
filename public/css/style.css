@@ -39,7 +39,7 @@ body {
     font-family: var(--font);
     font-size: 1.2rem;
     color: #333;
-    text-align: justify;
+    /* text-align: justify;*/
 }
 
 .left-column {
@@ -258,5 +258,29 @@ body {
 
     .border {
         flex: 0.3;
+    }
+
+    .click-button {
+        transition: background-color 0.05s ease, transform 0.07s ease;
+    }
+
+    .purchasable-button {
+        transition: background-color 0.05s ease, transform 0.07s ease;
+    }
+
+    .purchasable-button:hover {
+        background-color: var(--primary);
+    }
+
+    .purchasable-button:active {
+        background-color: var(--secondary);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .purchasable {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 }

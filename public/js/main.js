@@ -220,8 +220,6 @@ function parsePurchasableEffects(effect) {
     "tap-multiplier": "Multiplies click earnings",
     "global-multiplier": "Multiplies all earnings",
     "passive-multiplier": "Multiplies passive earnings of",
-    "lemonade-stand": "the lemonade stands",
-    "paperclip-factory": "the paperclip factories",
     "passive-income": "Automatically earns",
   };
 
