@@ -232,7 +232,13 @@ function parsePurchasableEffects(effect) {
   } else if (effect.type === "global-multiplier") {
     parsedEffect = `${plainLanguage["global-multiplier"]} by ${effect.value}`;
   } else if (effect.type === "passive-multiplier") {
-    parsedEffect = `${plainLanguage["passive-multiplier"]} ${getNameFromId(effect.affected)} by ${effect.value}`;
+    const affected = getNameFromId(effect.affected);
+    let affectedString = "";
+    for (const particularAffected of affected) {
+      affectedString += `${particularAffected.name}, `;
+    }
+    affectedString = affectedString.slice(0, -2);
+    parsedEffect = `${plainLanguage["passive-multiplier"]} ${affectedString} by ${effect.value}`;
   } else if (effect.type === "passive-income") {
     parsedEffect =
       plainLanguage["passive-income"] +
@@ -288,9 +294,13 @@ function notify(message) {
 }
 
 function getNameFromId(id) {
-  const listOfNames = gameState.initial ? purchasables.upgrades.initial.concat(purchasables.buildings.initial) : purchasables.upgrades.after.concat(purchasables.buildings.after);
-  console.log(listOfNames);
-  return listOfNames.find((purchasable) => purchasable.id === id).name;
+  const listOfPurchasables = gameState.initial ? purchasables.upgrades.initial.concat(purchasables.buildings.initial) : purchasables.upgrades.after.concat(purchasables.buildings.after);
+  let listOfNames = [];
+
+  for (const particularId of id) {
+    listOfNames.push(listOfPurchasables.find((purchasable) => purchasable.id === particularId));
+  }
+  return listOfNames;
 }
 
 // Save and restore

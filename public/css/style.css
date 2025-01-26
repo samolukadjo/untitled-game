@@ -255,4 +255,8 @@ body {
     .left-column {
         min-height: 70vh;
     }
+
+    .border {
+        flex: 0.3;
+    }
 }
