@@ -6,7 +6,7 @@
         "id": "vacation",
         "description": "Relax for once.",
         "type": "upgrade",
-        "img": "/assets/game-content/purchasables/baggage.png",
+        "img": "assets/game-content/purchasables/baggage.png",
         "dependencies": [],
         "basePrice": 2000,
         "effect": {
@@ -21,7 +21,7 @@
         "id": "family-recipe",
         "description": "A secret recipe handed down through the generations.",
         "type": "upgrade",
-        "img": "/assets/game-content/purchasables/family-recipe.png",
+        "img": "assets/game-content/purchasables/family-recipe.png",
         "dependencies": ["lemonade-stand"],
         "basePrice": 100000,
         "effect": {
@@ -35,7 +35,7 @@
         "id": "paper-straws",
         "description": "Just imagine what these will do to our public image! Go go ecology!",
         "type": "upgrade",
-        "img": "/assets/game-content/purchasables/paper-straw.png",
+        "img": "assets/game-content/purchasables/paper-straw.png",
         "dependencies": ["lemonade-stand"],
         "basePrice": 200000,
         "effect": {
@@ -49,7 +49,7 @@
         "id": "lemon-farms",
         "description": "Waaay better than buying them from the market.",
         "type": "upgrade",
-        "img": "/assets/game-content/purchasables/lemon-farm.png",
+        "img": "assets/game-content/purchasables/lemon-farm.png",
         "dependencies": ["lemonade-stand"],
         "basePrice": 1000000,
         "effect": {
@@ -63,7 +63,7 @@
         "id": "juicer-lemons",
         "description": "The wonders of modern farming technology.",
         "type": "upgrade",
-        "img": "/assets/game-content/purchasables/juicer-lemon.png",
+        "img": "assets/game-content/purchasables/juicer-lemon.png",
         "dependencies": ["lemonade-stand", "lemon-farms"],
         "basePrice": 1200000,
         "effect": {
@@ -77,7 +77,7 @@
         "id": "buy-lemon-stand-corp",
         "description": "Just buy the whole thing.",
         "type": "upgrade",
-        "img": "/assets/game-content/purchasables/lemon-logo.png",
+        "img": "assets/game-content/purchasables/lemon-logo.png",
         "dependencies": ["lemonade-stand"],
         "basePrice": 40000000,
         "effect": {
@@ -91,7 +91,7 @@
         "id": "free-samples",
         "description": "You can use the lemonade stands to give out free paperclips and vice versa! Genius!",
         "type": "upgrade",
-        "img": "/assets/game-content/purchasables/lemon-clip.png",
+        "img": "assets/game-content/purchasables/lemon-clip.png",
         "dependencies": ["lemonade-stand", "paperclip-factory"],
         "basePrice": 10000000,
         "effect": {
@@ -109,7 +109,7 @@
         "id": "car",
         "description": "The bus is good enough anyway...",
         "type": "building",
-        "img": "/assets/game-content/purchasables/car.png",
+        "img": "assets/game-content/purchasables/car.png",
         "dependencies": [],
         "basePrice": 19000,
         "effect": {
@@ -122,7 +122,7 @@
         "id": "house",
         "description": "You wish.",
         "type": "building",
-        "img": "/assets/game-content/purchasables/house.png",
+        "img": "assets/game-content/purchasables/house.png",
         "dependencies": [],
         "basePrice": 700000,
         "effect": {
@@ -137,7 +137,7 @@
         "id": "lemonade-stand",
         "description": "When life gives you lemons...",
         "type": "building",
-        "img": "/assets/game-content/purchasables/lemonade-stand.png",
+        "img": "assets/game-content/purchasables/lemonade-stand.png",
         "dependencies": [],
         "basePrice": 200000,
         "effect": {
@@ -150,7 +150,7 @@
         "id": "paperclip-factory",
         "description": "Paperclips, the ultimate timeless design.",
         "type": "building",
-        "img": "/assets/game-content/purchasables/paperclip-factory.png",
+        "img": "assets/game-content/purchasables/paperclip-factory.png",
         "dependencies": ["lemonade-stand"],
         "basePrice": 10000000,
         "effect": {

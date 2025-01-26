@@ -8,20 +8,20 @@ const numFormatter = new Intl.NumberFormat("en", { notation: "compact" });
 const currency = "$";
 
 let gameState = {
-  money: 50000000000,
+  money: 15000000,
   initial: false,
   debug: false,
   globalMultiplier: 1,
   tapMultiplier: 1,
   upgrades: {},
-  buildings: { "lemonade-stand": { amount: 5 } },
+  buildings: {},
 };
 let purchasables = {};
 
 init();
 
 function init() {
-  fetch("/assets/game-content/purchasables.json")
+  fetch("../assets/game-content/purchasables.json")
     .then((response) => response.json())
     .then((data) => {
       purchasables = data;
