@@ -3,10 +3,12 @@ const upgradesContainer = document.getElementById("upgrades-container");
 const buildingsContainer = document.getElementById("buildings-container");
 const clickContainer = document.getElementById("click-container");
 
+const numFormatter = new Intl.NumberFormat("en", { notation: "compact" });
+
 const currency = "$";
 
 let gameState = {
-  money: 0,
+  money: 50000000000,
   initial: false,
   debug: false,
   globalMultiplier: 1,
@@ -43,7 +45,7 @@ function renderAll() {
 
 function renderMoney() {
   const amountCounter = document.createElement("span");
-  amountCounter.textContent = gameState.money;
+  amountCounter.textContent = numFormatter.format(gameState.money);
   amountCounter.classList.add("money-counter");
   amountCounter.id = "money";
 
@@ -132,13 +134,20 @@ function renderPurchasable(purchasable) {
 
   title.textContent = purchasable.name;
 
-  description.textContent = purchasable.description;
+  description.textContent =
+    purchasable.description +
+    " | " +
+    parsePurchasableEffects(purchasable.effect);
 
   img.src = purchasable.img;
   img.classList.add("purchasable-img");
 
   button.textContent = "Buy";
   button.classList.add("purchasable-button");
+
+  button.addEventListener("click", () => {
+    buyPurchasable(purchasable);
+  });
 
   textWrapper.classList.add("purchasable-text-wrapper");
 
@@ -153,14 +162,26 @@ function renderPurchasable(purchasable) {
 
     if (gameState.buildings[purchasable.id]) {
       amountCounter.textContent = gameState.buildings[purchasable.id].amount;
-      button.textContent = "Buy for " + currency + (purchasable.basePrice * (1.12 ** gameState.buildings[purchasable.id].amount)).toFixed(0);
+      button.textContent =
+        "Buy for " +
+        currency +
+        numFormatter.format(
+          (
+            purchasable.basePrice *
+            1.12 ** gameState.buildings[purchasable.id].amount
+          ).toFixed(0)
+        );
     } else {
       amountCounter.textContent = 0;
-      button.textContent = "Buy for " + currency + purchasable.basePrice;
+      button.textContent =
+        "Buy for " + currency + numFormatter.format(purchasable.basePrice);
     }
 
     amountCounter.classList.add("amount-counter");
     li.appendChild(amountCounter);
+  } else if (purchasable.type === "upgrade") {
+    button.textContent =
+      "Buy for " + currency + numFormatter.format(purchasable.basePrice);
   }
 
   li.appendChild(button);
@@ -179,7 +200,7 @@ function renderClick() {
 }
 
 function updateMoneyAmountCounterPeriodically(element) {
-  let lastValue = 0;
+  let lastValue = gameState.money;
   setInterval(() => {
     if (gameState.debug) {
       console.log("Updating money...");
@@ -188,10 +209,39 @@ function updateMoneyAmountCounterPeriodically(element) {
       if (gameState.debug) {
         console.log("Money changed");
       }
-      element.textContent = gameState.money;
+      element.textContent = numFormatter.format(gameState.money);
       lastValue = gameState.money;
     }
   }, 100);
+}
+
+function parsePurchasableEffects(effect) {
+  const plainLanguage = {
+    "tap-multiplier": "Multiplies click earnings",
+    "global-multiplier": "Multiplies all earnings",
+    "passive-multiplier": "Multiplies passive earnings of",
+    "lemonade-stand": "the lemonade stands",
+    "paperclip-factory": "the paperclip factories",
+    "passive-income": "Automatically earns",
+  };
+
+  let parsedEffect = "";
+
+  if (effect.type === "tap-multiplier") {
+    parsedEffect = `${plainLanguage["tap-multiplier"]} by ${effect.value}`;
+  } else if (effect.type === "global-multiplier") {
+    parsedEffect = `${plainLanguage["global-multiplier"]} by ${effect.value}`;
+  } else if (effect.type === "passive-multiplier") {
+    parsedEffect = `${plainLanguage["passive-multiplier"]} ${getNameFromId(effect.affected)} by ${effect.value}`;
+  } else if (effect.type === "passive-income") {
+    parsedEffect =
+      plainLanguage["passive-income"] +
+      " " +
+      currency +
+      numFormatter.format(effect.value) +
+      " per second";
+  }
+  return parsedEffect;
 }
 
 function buttonClicked() {
@@ -199,6 +249,51 @@ function buttonClicked() {
     7.25 * gameState.globalMultiplier * gameState.tapMultiplier;
 }
 
+function buyPurchasable(purchasable) {
+  if (purchasable.type === "upgrade") {
+    console.log(purchasable);
+  } else if (purchasable.type === "building") {
+    if (gameState.buildings[purchasable.id]) {
+      const priceOfPurchasable = (
+        purchasable.basePrice *
+        1.12 ** gameState.buildings[purchasable.id].amount
+      ).toFixed(0);
+
+      if (gameState.money >= priceOfPurchasable) {
+        gameState.money -= priceOfPurchasable;
+
+        if (gameState.buildings[purchasable.id]) {
+          gameState.buildings[purchasable.id].amount++;
+        } else {
+          gameState.buildings[purchasable.id] = { amount: 1 };
+        }
+
+        renderPurchasables();
+      } else {
+        notify("You don't have enough money to buy this building!");
+      }
+    }
+  }
+}
+
+// Utilities
+function notify(message) {
+  const notification = document.createElement("div");
+  notification.classList.add("notification");
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  setTimeout(() => {
+    document.body.removeChild(notification);
+  }, 3000);
+}
+
+function getNameFromId(id) {
+  const listOfNames = gameState.initial ? purchasables.upgrades.initial.concat(purchasables.buildings.initial) : purchasables.upgrades.after.concat(purchasables.buildings.after);
+  console.log(listOfNames);
+  return listOfNames.find((purchasable) => purchasable.id === id).name;
+}
+
+// Save and restore
 function saveGameStatePeriodically() {
   setInterval(() => {
     localStorage.setItem("gameState", JSON.stringify(gameState));
