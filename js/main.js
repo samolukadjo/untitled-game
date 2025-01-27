@@ -17,6 +17,7 @@ let gameState = {
   buildings: {},
 };
 let purchasables = {};
+let earningPerSecond = [];
 
 init();
 
@@ -32,6 +33,7 @@ function init() {
       restoreGameState();
       renderAll();
       saveGameStatePeriodically();
+      tick();
 
       document.getElementById("click-button");
     });
@@ -41,6 +43,12 @@ function renderAll() {
   renderMoney();
   renderPurchasables();
   renderClick();
+}
+
+function tick() {
+  setInterval(() => {
+    console.log("Tick elapsed");
+  }, 1000);
 }
 
 function renderMoney() {
