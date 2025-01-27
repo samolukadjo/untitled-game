@@ -10,7 +10,7 @@ const currency = "$";
 let gameState = {
   money: 15000000,
   initial: false,
-  debug: false,
+  debug: true,
   globalMultiplier: 1,
   tapMultiplier: 1,
   upgrades: {},
