@@ -257,25 +257,33 @@ function buyPurchasable(purchasable) {
   if (purchasable.type === "upgrade") {
     console.log(purchasable);
   } else if (purchasable.type === "building") {
-    if (gameState.buildings[purchasable.id]) {
-      const priceOfPurchasable = (
-        purchasable.basePrice *
-        1.12 ** gameState.buildings[purchasable.id].amount
-      ).toFixed(0);
+    const priceOfPurchasable = gameState.buildings[purchasable.id]
+      ? (
+          purchasable.basePrice *
+          1.12 ** gameState.buildings[purchasable.id].amount
+        ).toFixed(0)
+      : purchasable.basePrice;
 
-      if (gameState.money >= priceOfPurchasable) {
-        gameState.money -= priceOfPurchasable;
+    if (gameState.money >= priceOfPurchasable) {
+      gameState.money -= priceOfPurchasable;
 
-        if (gameState.buildings[purchasable.id]) {
-          gameState.buildings[purchasable.id].amount++;
-        } else {
-          gameState.buildings[purchasable.id] = { amount: 1 };
-        }
-
-        renderPurchasables();
+      if (gameState.buildings[purchasable.id]) {
+        gameState.buildings[purchasable.id].amount++;
       } else {
-        notify("You don't have enough money to buy this building!");
+        gameState.buildings[purchasable.id] = { amount: 1 };
       }
+
+      if (gameState.debug) {
+        console.log("Bought", purchasable.name, "for", priceOfPurchasable);
+      }
+
+      renderPurchasables();
+    } else {
+      notify(
+        `You don't have enough money to buy this building! (You need ${currency}${numFormatter.format(
+          priceOfPurchasable - gameState.money
+        )} more)`
+      );
     }
   }
 }
@@ -292,11 +300,15 @@ function notify(message) {
 }
 
 function getNameFromId(id) {
-  const listOfPurchasables = gameState.initial ? purchasables.upgrades.initial.concat(purchasables.buildings.initial) : purchasables.upgrades.after.concat(purchasables.buildings.after);
+  const listOfPurchasables = gameState.initial
+    ? purchasables.upgrades.initial.concat(purchasables.buildings.initial)
+    : purchasables.upgrades.after.concat(purchasables.buildings.after);
   let listOfNames = [];
 
   for (const particularId of id) {
-    listOfNames.push(listOfPurchasables.find((purchasable) => purchasable.id === particularId));
+    listOfNames.push(
+      listOfPurchasables.find((purchasable) => purchasable.id === particularId)
+    );
   }
   return listOfNames;
 }
