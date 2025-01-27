@@ -110,7 +110,9 @@ body {
     max-height: 100%;
     display: none;
     margin: 0;
+    scrollbar-width: thin;
     overflow-y: scroll;
+    max-height: 90vh;
 }
 
 .tab:target {
@@ -275,6 +277,10 @@ body {
 
     .purchasable-button:active {
         background-color: var(--secondary);
+    }
+
+    .tab {
+        max-height: none;
     }
 }
 
